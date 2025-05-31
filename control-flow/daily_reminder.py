@@ -1,9 +1,23 @@
 # daily_reminder.py
 
+def get_input(prompt, valid_options=None):
+    while True:
+        value = input(prompt).strip().lower()
+        if valid_options:
+            if value in valid_options:
+                return value
+            else:
+                print(f"Please enter one of the following: {', '.join(valid_options)}")
+        else:
+            if value:
+                return value
+            else:
+                print("Input cannot be empty.")
+
 def main():
-    task = input("Enter your task: ")
-    priority = input("Priority (high/medium/low): ").lower()
-    time_bound = input("Is it time-bound? (yes/no): ").lower()
+    task = get_input("Enter your task: ", None)
+    priority = get_input("Priority (high/medium/low): ", ["high", "medium", "low"])
+    time_bound = get_input("Is it time-bound? (yes/no): ", ["yes", "no"])
 
     match priority:
         case "high":
@@ -12,22 +26,20 @@ def main():
             msg = f"Reminder: '{task}' is a medium priority task"
         case "low":
             msg = f"Note: '{task}' is a low priority task"
-        case _:
-            print("Invalid priority entered. Please enter high, medium, or low.")
-            return
 
     if time_bound == "yes":
-        if priority in ("high", "medium"):
+        if priority in ["high", "medium"]:
             print(f"{msg} that requires immediate attention today!")
-        else:  # low priority but time-bound
+        else:
             print(f"{msg} that you might want to finish soon.")
-    elif time_bound == "no":
+    else:  # time_bound == "no"
         if priority == "low":
             print(f"{msg}. Consider completing it when you have free time.")
         else:
             print(f"{msg}. You can plan to complete it as per your schedule.")
-    else:
-        print("Invalid input for time-bound. Please enter yes or no.")
+
+    print("\nWell done on completing this project! Let the world hear about this milestone achieved.\n")
+    print("🚀 Click here to tweet! 🚀")
 
 if __name__ == "__main__":
     main()
