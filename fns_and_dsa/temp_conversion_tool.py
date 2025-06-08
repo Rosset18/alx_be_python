@@ -1,34 +1,27 @@
-def display_menu():
-    print("Shopping List Manager")
-    print("1. Add Item")
-    print("2. Remove Item")
-    print("3. View List")
-    print("4. Exit")
+FAHRENHEIT_TO_CELSIUS_FACTOR = 5/9
+CELSIUS_TO_FAHRENHEIT_FACTOR = 9/5
 
-def main():
-    shopping_list = []
-    while True:
-        display_menu()
-        choice = input("Enter your choice: ")
+# Get user input
+value_to_be_converted = float(input("Enter the temperature to convert: "))  # Use float for decimal values
+choose_temperature = input("Is this temperature in Celsius or Fahrenheit? (C/F): ").strip().lower()
 
-        if choice == '1':
-            # Prompt for and add an item
-            add_item = input("Enter the item to add: ")
-            shopping_list.append(add_item)
-        
-        elif choice == '2':
-            # Prompt for and remove an item
-            remove_item = input("Please Enter Item to be removed: ")
-            shopping_list.remove(remove_item)
-        elif choice == '3':
-            # Display the shopping list
-            print(shopping_list)
-        elif choice == '4':
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice. Please try again.")
+# Conversion functions
+def convert_to_celsius(fahrenheit):
+    celsius = (fahrenheit - 32) * FAHRENHEIT_TO_CELSIUS_FACTOR
+    return celsius
 
-if __name__ == "__main__":
-    main()
+def convert_to_fahrenheit(celsius):
+    fahrenheit = (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + 32
+    return fahrenheit
 
+# Input validation and conversion
+if choose_temperature == "c":
+    # Convert Celsius to Fahrenheit
+    fahrenheit = convert_to_fahrenheit(value_to_be_converted)
+    print(f"{value_to_be_converted}°C is {fahrenheit:.2f}°F")
+elif choose_temperature == "f":
+    # Convert Fahrenheit to Celsius
+    celsius = convert_to_celsius(value_to_be_converted)
+    print(f"{value_to_be_converted}°F is {celsius:.2f}°C")
+else:
+    print("Invalid temperature. Please enter a numeric value.")
