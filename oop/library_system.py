@@ -1,46 +1,147 @@
-#Ebook 
-# library_system.py
-
 class Book:
-    def __init__(self, title, author):
+    """
+    A base class to represent a book.
+
+    Attributes:
+    -----------
+    title : str
+        The title of the book.
+    author : str
+        The author of the book.
+    """
+
+    def __init__(self, title: str, author: str):
+        """
+        Initializes a new Book instance.
+
+        Parameters:
+        -----------
+        title : str
+            The title of the book.
+        author : str
+            The author of the book.
+        """
         self.title = title
         self.author = author
 
-    def get_info(self):
-        return f"{self.title} by {self.author}"
+    def __str__(self):
+        """
+        Returns a string representation of the Book instance.
+
+        Returns:
+        --------
+        str
+            A string in the format "Book: {title} by {author}".
+        """
+        return f"Book: {self.title} by {self.author}"
 
 
 class EBook(Book):
-    def __init__(self, title, author, file_size):
-        super().__init__(title, author)
-        self.file_size = file_size  # in MB
+    """
+    A class to represent an electronic book, inheriting from the Book class.
 
-    def get_info(self):
-        return f"{super().get_info()} [EBook, {self.file_size}MB]"
+    Attributes:
+    -----------
+    file_size : int
+        The file size of the eBook in kilobytes.
+    """
+
+    def __init__(self, title: str, author: str, file_size: int):
+        """
+        Initializes a new EBook instance.
+
+        Parameters:
+        -----------
+        title : str
+            The title of the eBook.
+        author : str
+            The author of the eBook.
+        file_size : int
+            The file size of the eBook in kilobytes.
+        """
+        super().__init__(title, author)
+        self.file_size = file_size
+
+    def __str__(self):
+        """
+        Returns a string representation of the EBook instance.
+
+        Returns:
+        --------
+        str
+            A string in the format "EBook: {title} by {author}, File Size: {file_size}KB".
+        """
+        return f"EBook: {self.title} by {self.author}, File Size: {self.file_size}KB"
 
 
 class PrintBook(Book):
-    def __init__(self, title, author, page_count):
+    """
+    A class to represent a printed book, inheriting from the Book class.
+
+    Attributes:
+    -----------
+    page_count : int
+        The number of pages in the printed book.
+    """
+
+    def __init__(self, title: str, author: str, page_count: int):
+        """
+        Initializes a new PrintBook instance.
+
+        Parameters:
+        -----------
+        title : str
+            The title of the printed book.
+        author : str
+            The author of the printed book.
+        page_count : int
+            The number of pages in the printed book.
+        """
         super().__init__(title, author)
         self.page_count = page_count
 
-    def get_info(self):
-        return f"{super().get_info()} [PrintBook, {self.page_count} pages]"
+    def __str__(self):
+        """
+        Returns a string representation of the PrintBook instance.
+
+        Returns:
+        --------
+        str
+            A string in the format "PrintBook: {title} by {author}, Page Count: {page_count}".
+        """
+        return f"PrintBook: {self.title} by {self.author}, Page Count: {self.page_count}"
 
 
 class Library:
-    def __init__(self):
-        self.books = []  # List of Book, EBook, or PrintBook instances
+    """
+    A class to represent a library, containing a collection of books.
 
-    def add_book(self, book):
-        if isinstance(book, Book):
-            self.books.append(book)
-        else:
-            print("Only books can be added to the library.")
+    Attributes:
+    -----------
+    books : list
+        A list to store the books in the library.
+    """
+
+    def __init__(self):
+        """
+        Initializes a new Library instance.
+        """
+        self.books = []
+
+    def add_book(self, book: object):
+        """
+        Adds a book to the library's collection.
+
+        Parameters:
+        -----------
+        book : Book
+            An instance of the Book class or its subclasses (EBook, PrintBook).
+        """
+        return self.books.append(book)
 
     def list_books(self):
-        if not self.books:
-            print("The library is currently empty.")
-        else:
-            for index, book in enumerate(self.books, start=1):
-                print(f"{index}. {book.get_info()}")
+        """
+        Prints out the details of all books in the library's collection.
+        """
+        for book in self.books:
+            print(book)
